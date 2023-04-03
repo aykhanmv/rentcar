@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+  #containerLogin{
+    width: 700px;
+    min-height: 500px !important;
+    margin-bottom: 100px !important;
+  }
+  .titleTagLogin{
+    text-align: center;
+    top: 10% !important;
+  }
+</style>
+
+    <div id="login" class="boxSizeLogin">
+      <div  class="bodyStyleLogin">
+        <div  class="wrapperLogin" id="containerLogin">
+          <div style="height: 500px !important; background-color: red !important;" class="form-containerLogin forget-password">
+            <form  class="loginForm" action="{% url 'forget' %}" method="POST">
+              {% csrf_token %}
+              <div style="opacity:0.7;" class="titleTagLogin ">Password Recovery</div>
+              {% for field in form %}
+                {% render_field field class="inpLogin" placeholder=field.label %}
+              {% endfor %}
+              <div class="buttonPosLogin">
+              <button  class="btnLogin" type="submit"  name='submit' value='sign_in'>&nbsp;&nbsp; Send Recover Link &nbsp;&nbsp; </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}

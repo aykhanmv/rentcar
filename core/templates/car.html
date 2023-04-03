@@ -1,0 +1,206 @@
+{% extends 'main.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container conPosCar">
+    <div class="row">
+        <div class="col-md-9">
+            {% for car in cars %}
+            <div class="brandOfCar">
+                {{ car.marka}} 
+            </div>
+            <div class="modelOfCar">
+                {{ car.model  }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+         
+        </div>
+    </div>
+    <div class="row  ">
+        <div class="col-md-9  col-sm-12">
+            {% for car in cars %}
+            <div id="custCarousel" class="carousel slide  " data-ride="carousel" align="center">
+                <!-- slides -->
+                {% for car_image in car.car_images.all  %}
+                <div class="carousel-inner">
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}"><img src="{{ car_image.image.url  }}" alt="Hills" /></div>
+                </div>
+                {% endfor %}
+                <!-- Left right -->
+                <a class="carousel-control-prev maxsizeCar" href="#custCarousel" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a>
+                <a class="carousel-control-next maxsizeCar" href="#custCarousel" data-slide="next"> <span class="carousel-control-next-icon"></span> </a>
+                <!-- Thumbnails -->
+                <ol class="carousel-indicators list-inline">
+                    {% for car_image in car.car_images.all  %}
+                    <li class="list-inline-item {% if forloop.first %}active{% endif %}">
+                        <a id="carousel-selector-{{car.id}}" class="selected" data-slide-to="{{car.id}}" data-target="#custCarousel">
+                            <img src="{{ car_image.image.url  }}" class="img-fluid-check" />
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="carPricePos">
+                        <div class="carPrice">
+                            <span class="align-middle"><i>{{ car.price  }}$ per day</i></span>
+                            
+                        </div>
+                        <div class="texesPriceCar">
+                            <span class="align-middle">Included Taxes & Insurance  </span>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                    <!-- <div class="reserveMobile">
+                        <a href="#" class="btn btn-sm animated-button thar-three">Book this car</a>
+                    </div> -->
+                    <div class="contactCar">
+                        <i class="fas fa-paper-plane"></i> <span class="textCar"><i>CONTACT US</i></span>
+                    </div>
+                    <form id="contact-form" class="form" action="{% url 'car_detail' car.id %}" method="POST" role="form">
+                        {% csrf_token  %}
+                        <div class="form-group">
+                            {% for field in form %}
+                                {% if field.name == "name" %}
+                                    {% render_field field class="form-control" placeholder=field.label %}
+                                {% endif %}
+                            {% endfor %}
+                            <!-- <input type="text" class="form-control"  name="name" placeholder="Your name" tabindex="1" required> -->
+                        </div>                            
+                        <div class="form-group">
+                           
+                            {% for field in form %}
+                            {% if field.name == "email" %}
+                                {% render_field field class="form-control" placeholder=field.label %}
+                            {% endif %}
+                            {% endfor %}
+                        </div>                            
+                        <div class="form-group">
+                            {% for field in form %}
+                                {% if field.name == "phone" %}
+                                    {% render_field field class="form-control" placeholder=field.label %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>                            
+                        <div class="form-group">
+                            {% for field in form %}
+                                {% if field.name == "message" %}
+                                    {% render_field field class="form-control textareaCar" placeholder=field.label %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="text-center">
+                            <button id='buttonSendCar' type="submit" class="btn btn-start-order ">Send </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        {% if not car.is_booked %}
+                            <form method="POST" action="{% url 'book_car' pk=car.id %}">
+                                {% csrf_token %}
+                                {% if user.is_authenticated  %}
+                                <div class="buttonCar">
+                                    <a href="# " onclick="this.closest('form').submit()" class="btn btn-sm animated-button thar-three">Book this car</a>
+                                </div> 
+                                {% else  %} 
+                                <div class="buttonCar">
+                                    <a href="{% url 'login'  %}" class="btn btn-sm animated-button thar-three">Login to book this car</a>
+                                </div> 
+                                {% endif %}
+                     
+                          </form>
+                        {% else %}
+                            {% if car.booker == request.user %}
+                            <form method="POST" action="{% url 'book_car' pk=car.id %}">
+                                {% csrf_token %}
+                                <div class="buttonCar">
+                                    <a href="# " onclick="this.closest('form').submit()" class="btn btn-sm animated-button thar-three">Booked</a>
+                                </div>                          
+                            </form>
+                            {% else %}
+                                <a href="# " onclick="this.closest('form').submit()" class="btn btn-sm animated-button thar-three disabled">Booked</a>
+                            {% endif %}
+                        {% endif %}
+
+                        <p>Posted by: {{ car.company.get_full_name }}</p>
+                        {% if car.booker %}
+                        <p>Booked by: {{ car.booker.get_full_name }}</p>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <div class="aboutCar">
+                <div class="overviewCar">Quick overview</div>
+                <div class="overviewTextCar">
+                    {{ car.about  }}
+                </div>
+               
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="containerCrossCar">
+                <div class="row no-gutters">
+                    <div class="col-6">
+                        <div class="infoCar1">
+                            <div class="iconCar">
+                                <i class="fas fa-heartbeat iconStyleCar" aria-hidden="true"></i>
+                            </div>
+                            <div class="textIconCar">
+                                {{ car.time  }}s
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="infoCar2">
+                            <div class="iconCar">
+                                <i class="fas fa-cog iconStyleCar" aria-hidden="true"></i>
+                            </div>
+                            <div class="textIconCar">
+                                {{ car.nm  }}nm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-6">
+                        <div class="infoCar3">
+                            <div class="iconCar">
+                                <i class="fas fa-horse iconStyleCar" aria-hidden="true"></i>
+                            </div>
+                            <div class="textIconCar">
+                                {{ car.hp  }}hp
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="infoCar4">
+                            <div class="iconCar">
+                                <i class="fas fa-tachometer-alt iconStyleCar"></i>
+                            </div>
+                            <div class="textIconCar">
+                                {{ car.topSpeed }}hm/h
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  {% endblock %}

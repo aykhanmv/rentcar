@@ -1,0 +1,372 @@
+{% extends 'main.html' %}
+{% load widget_tweaks %}
+
+{% load static  %}
+{% block content %}
+<div class="container-fluid over">
+     <div class="row">
+        <div class="col-md-4 col-12">
+            
+        </div>
+        <div class="col-md-4 col-12">
+            <canvas id="locationData" width="100%" height="50%"></canvas>
+        </div>
+        <div class="col-md-4 col-12">
+          
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="addCarTitle">
+                add new car
+            </div>
+        </div>
+    </div>
+        <form method="POST"  enctype="multipart/form-data" >
+        {% csrf_token  %}
+            <div class="row">
+                <div class="col-md-4">
+                   
+                </div>
+                <div class="col-md-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            {% for field in form %}
+                            {% if field.name == "model" %}
+                            {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                            {% if field.errors %}
+                            <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}
+                            {% endif %}   
+                            {% endfor %}
+    
+                        </div>
+                    </div>
+                    <div class="row ">
+                        
+                        <div class="col-md-3">
+                            {% for field in form %}
+                            {% if field.name == "time" %}
+                            {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                            {% if field.errors %}
+                            <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}
+                            {% endif %}  
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                            {% for field in form %}
+
+                            {% if field.name == "topSpeed" %}
+                            {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                            {% if field.errors %}
+                            <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}
+                            {% endif %}  
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                            {% for field in form %}
+
+                            {% if field.name == "nm" %}
+                            {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                            {% if field.errors %}
+                            <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}
+                            {% endif %}   
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                            {% for field in form %}
+
+                            {% if field.name == "hp" %}
+                            {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                            {% if field.errors %}
+                            <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}
+                            {% endif %} 
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="lastCarInfo">
+                        
+                        </div>
+                            <div class="col-md-4">
+                                {% for field in form %}
+
+                                {% if field.name == "price" %}
+                                {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                                {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                    {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                                {% endif %}
+                                {% endif %} 
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {% for field in form %}
+                                {% if field.name == "year_id" %}
+                                {% render_field field class="pickUpPlace selectYearGraph" placeholder=field.label %}
+
+                                {% endif %}
+                                {% endfor %}
+                               
+                            </div>
+                            <div class="col-md-4">
+                                {% for field in form %}
+
+                                {% if field.name == "seats" %}
+                                {% render_field field class="inputFieldGraph performanceData" placeholder=field.label %}
+                                {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">*
+                                    {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                                {% endif %}
+                                {% endif %} 
+                                {% endfor %}
+                            </div>
+                        
+                    </div>
+                    {% for field in form %}
+                    {% if field.name == "more_images"%}
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="titleAddCar">
+                                ADD PICTURES
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+
+                                </div>
+                                <div class="col-6">
+                                    <img id="pic-1" alt="" width="100%" height="auto"  />
+                                </div>
+                                <div class="col-3">
+
+                                </div>
+
+                            </div>
+                            <label>First picture</label>
+                            {% render_field field  class="inputFieldGraph"  onchange="displayImage(event)" placeholder=field.label %}
+
+                            <!-- <input  name="car1" class="inputFieldGraph"type="file" onchange="document.getElementById('pic-1').src = window.URL.createObjectURL(this.files[0])" placeholder="main picture"> -->
+                        </div>  
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                   
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <div class="row ">
+                        <div class="col-6">
+                            <div class="row">
+                                {% for field in form %}
+                                {% if field.name == "more_images"%}
+                                <div class="col-12">
+                                    
+                                    <div class="row">
+                                        <div class="col-3">
+                
+                                        </div>
+                                        <div class="col-6">
+                                            <img id="pic-2" alt="" width="100%" height="auto" />
+                                        </div>
+                                        <div class="col-3">
+                
+                                        </div>
+                
+                                    </div>
+                                    <label>Second picture</label>
+                                    {% render_field field  id="=file" class="inputFieldGraph"  onchange="displayImage1(event)" placeholder=field.label %}
+                                </div>  
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                {% for field in form %}
+                                {% if field.name == "more_images"%}
+                                <div class="col-12">
+                                    
+                                    <div class="row">
+                                        <div class="col-3">
+                
+                                        </div>
+                                        <div class="col-6">
+                                            <img id="pic-3" alt="" width="100%" height="auto" />
+                                        </div>
+                                        <div class="col-3">
+                
+                                        </div>
+                
+                                    </div>
+                                    <label>Third picture</label>
+                                    {% render_field field  id="=file" class="inputFieldGraph"  onchange="displayImage2(event)" placeholder=field.label %}
+                                </div>  
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row ">
+                                {% for field in form %}
+                                {% if field.name == "more_images"%}
+                                <div class="col-12">
+                                    
+                                    <div class="row">
+                                        <div class="col-3">
+                
+                                        </div>
+                                        <div class="col-6">
+                                            <img id="pic-4" alt="" width="100%" height="auto" />
+                                        </div>
+                                        <div class="col-3">
+                
+                                        </div>
+                
+                                    </div>
+                                    <label>Foutrh picture</label>
+                                    {% render_field field  id="=file" class="inputFieldGraph"  onchange="displayImage3(event)" placeholder=field.label %}
+                                </div>  
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row ">
+                                {% for field in form %}
+                                {% if field.name == "more_images"%}
+                                <div class="col-12">
+                                    
+                                    <div class="row">
+                                        <div class="col-3">
+                
+                                        </div>
+                                        <div class="col-6">
+                                            <img id="pic-5" alt="" width="100%" height="auto" />
+                                        </div>
+                                        <div class="col-3">
+                
+                                        </div>
+                
+                                    </div>
+                                    <label>Fifth picture</label>
+                                    {% render_field field  id="=file" class="inputFieldGraph"  onchange="displayImage4(event)" placeholder=field.label %}
+                                </div>  
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+
+                </div>
+                <div class="col-4">
+                    <div class="shortAboutText">
+                        {% for field in form %}
+
+                        {% if field.name == "shortAbout" %}
+                        {% render_field field class="form-control textareaCar" placeholder=field.label id="message" %}
+                        {% if field.errors %}
+                        <span style="font-size: 12px; color: red; font-weight: 400;">*
+                            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                        {% endif %}
+                        {% endif %} 
+                        {% endfor %}
+                    </div>
+                    <div class="longAboutText">
+                        {% for field in form %}
+
+                        {% if field.name == "about" %}
+                        {% render_field field class="form-control textareaCar" placeholder=field.label id="message" %}
+                        {% if field.errors %}
+                        <span style="font-size: 12px; color: red; font-weight: 400;">*
+                            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                        {% endif %}
+                        {% endif %} 
+                        {% endfor %}     
+                    </div>
+                </div>
+                <div class="col-4">
+                    
+                </div>
+            </div>
+     
+            <div class="row">
+                <div class="col-md-4 col-4">
+
+                </div>
+                <div class="col-md-4 col-4">
+                    <div class="submitAddCar">
+                        <button type="submit" class="raise raiseGraph">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-4 col-4">
+
+                </div>
+            </div>
+        </form>
+</div>
+
+
+
+<script>
+    function displayImage(event) {
+    var image = document.getElementById('pic-1');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    }
+    function displayImage1(event) {
+    var image = document.getElementById('pic-2');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    }
+    function displayImage2(event) {
+    var image = document.getElementById('pic-3');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    }
+    function displayImage3(event) {
+    var image = document.getElementById('pic-4');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    }
+    function displayImage4(event) {
+    var image = document.getElementById('pic-5');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+
+
+
+{% endblock  %}

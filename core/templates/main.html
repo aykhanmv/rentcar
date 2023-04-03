@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/88703e40b7.js"></script>
+	<script src="https://use.fontawesome.com/e3ec2c4683.js"></script>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" type="image/x-icon" href="{% static '/images/logo/logo_02.png' %}">
+
+	<title>DriveToday</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static '/css/gridfooter.css' %}">
+	<link rel="stylesheet" href="{% static '/css/grid.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/mainCarousel.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/carouselPic.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/login.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/register.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/gridLastest.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/latest.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/us.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/carPage.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/gridCustomer.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/customer.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/renting.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/confir.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/stripe.css'  %}">
+	<link rel="stylesheet" href="{% static '/css/navbar.css' %}">
+	<link rel="stylesheet" href="{% static '/css/footer.css' %}">
+	<link rel="stylesheet" href="{% static '/css/carTable.css' %}">
+	<link rel="stylesheet" href="{% static '/css/gallery.css' %}">
+	<link rel="stylesheet" href="{% static '/css/galleryGrdid.css' %}">
+	<link rel="stylesheet" href="{% static '/css/updateCustomer.css' %}">
+	<link rel="stylesheet" href="{% static '/css/graph.css' %}">
+	
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&family=Montserrat:wght@300;400;500;700&family=Prompt:wght@400;500&family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<div class="homeWrapper ">
+        <header style=" background-color: #FFB10B; color: #FAFBFC;">
+			<div style="    padding-bottom: 21px">
+				<nav>
+					<div style="display: flex; align-items: center; justify-content: space-around !important;">
+						
+						<div >
+						</div>
+
+						<div>
+							<ul style="margin-top: auto;
+							margin-bottom: auto;" class="nav__links">
+		
+								<li><a style="color: #FAFBFC !important;" href="{% url 'home' %}">Home</a></li>
+								<li><a style="color: #FAFBFC !important;" href="#faqs" class="scroll">About us</a></li>
+								
+								
+								<!--page is in demo mode after deployment logic will be made here-->
+								{% if user.is_authenticated  %}
+									<li><a style="color: #FAFBFC !important;" href="{% url 'profile' %}">My Profile</a></li>
+	
+								{% endif %}
+								{% if request.user.is_company_active  %}
+									<li><a style="color: #FAFBFC !important;" href="{% url 'add-car' %}">Add a new car</a></li>
+								{%endif%}
+							</ul>
+						</div>
+
+						<div>
+							<p class="menu cta">Menu</p>
+							{% if user.is_authenticated  %}
+							<a class="cta" href="{% url 'logout'  %}">Log out</a>
+							{% else  %} 
+							<a class="cta" href="{% url 'login'  %}">Log in</a>
+							{% endif %}
+						</div>
+					</div>
+
+				</nav>
+			</div>
+
+        </header>
+	</div>	
+	{% block content %}
+	
+
+
+	{% endblock %}
+
+	<div class="container-fluid linesBig">
+		<div class="row justify-content-center">
+		  <div class="col-4">
+			<div class="borderLinesBig"></div>
+		  </div>
+		  <div class="col-4">
+			<div class="textPc">Get in touch with us</div>
+		  </div>
+		  <div class="col-4">
+			<div class="borderLinesBig"></div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="grid-container-footer">
+		<div class="time">
+		  <div class="timeWrapperFooter">
+			<div class="timePosFooter">
+			  <div class="dayDateFooter">
+			  Monday - Friday:
+			  </div>
+			  <div class="hoursFooter">
+				8:00 - 20:00 (8 AM - 8 PM)
+			  </div>
+			  <div class="dayDateFooter">
+				 Saturday - Sunday:
+			  </div>
+			  <div class="hoursFooter">
+				10:00 - 18:00 (10 AM - 6 PM)
+			  </div>
+			  <div class="timeZoneFooter">
+				 Baku, AZE, GMT +04
+			  </div>
+			</div>
+			<div class="bordersFooterMobile"></div>
+		  </div>
+	  
+		</div>
+		<div class="phone">
+		  <div class="wrapperPhoneFooter">
+			<div class="phonesFooter">
+			  <div class="callFooter">Call Us</div>
+			</div>
+			<div class="phonesFooter">
+			  <div class="countryFooter">AZE </div><div class="numberFooter">+994 55 870 52 27</div>
+			</div>
+			<div class="phonesFooter">
+			  <div class="countryFooter">AZE </div><div class="numberFooter">+994 55 870 52 27</div>
+			</div>
+			<div class="phonesFooter">
+			  <div class="countryFooter">AZE </div><div class="numberFooter">+994 55 870 52 27</div>
+			</div>
+		  </div>
+		</div>
+		<div class="office"><!--Same classes as time-->
+		  <div class="timeWrapperFooter">
+			<div class="bordersFooterMobile"></div>
+			<div class="placePosFooter">
+			  <div class="dayDateFooter">
+			  	Azerbaijan Offices:
+			  </div>
+			  <div class="hoursFooter">
+				Nizami Kuc. 77/41 Az1000
+			  </div>
+
+			  <div class="dayDateFooter">
+				Azerbaijan Offices:
+				</div>
+			<div class="hoursFooter">
+			  Nizami Kuc. 77/41 Az1000
+			</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap" rel="stylesheet">
+<script src="{% static '/js/nav.js' %}"></script>
+<script src="{% static '/js/carousel.js' %}"></script>
+<script src="{% static '/js/togglefaq.js' %}"></script>
+
+
+</html>

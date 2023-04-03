@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+  #containerLogin{
+    width: 800px;
+    min-height: 300px !important;
+    margin-bottom: 100px !important;
+  }
+  .titleTagLogin{
+    text-align: center;
+    top: 20% !important;
+  }
+</style>
+
+    <div id="login" class="boxSizeLogin">
+      <div class="bodyStyleLogin">
+        <div class="wrapperLogin" id="containerLogin">
+          <div class="form-containerLogin forget-password">
+            <form class="loginForm" action="" method="POST">
+              {% csrf_token %}
+              <div style="opacity:0.7;" class="titleTagLogin ">Recover link has been sent to your email address</div>
+              
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}

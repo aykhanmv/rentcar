@@ -1,0 +1,136 @@
+<div id="main-login-wrapper">
+  {% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<!--When website will be deployed logic will be made that if user is logged he don't se login container-->
+{% if user.is_authenticated %}
+
+{% else  %}
+    <div id="login" class="boxSizeLogin">
+      <div class="bodyStyleLogin">
+        <div class="wrapperLogin" id="containerLogin">
+          <div class="form-containerLogin sign-up-containerLogin">
+            <div class="loginForm">
+            <div class="loginFormText">
+              <div style=" padding-top: 185px !important;" class="accoutLogin createPos ">Create an account</div>
+              <div class="textCreatePos">Create a new account!<br/></div>
+              <a  href="{% url 'register' %}">
+                <button  class="btnLogin buttonPosLogin" > &nbsp;&nbsp;Sing&nbsp; up&nbsp;&nbsp; </button>
+              </a>
+
+            </div>
+            </div>
+          </div>
+          
+          <div class="form-containerLogin sign-in-containerLogin">
+            <form class="loginForm" action="{% url 'login' %}" method="POST">
+              {% csrf_token %}
+              <div style="opacity:0.7;" class="titleTagLogin ">Welcome</div>
+              <p style="font-size: 20px;" class="pLogin">Login to your account!</p>
+
+              {% for field in form %}
+              {% if field.name == "username" %}
+              {% render_field field class="inpLogin" placeholder=field.label %}
+              {% if field.errors %}
+              <span style="font-size: 12px; color: red; font-weight: 400;">*
+                  {% for error in field.errors %}{{ error }}{% endfor %}</span>
+              {% endif %}
+              {% endif %}
+              {% if field.name == "password" %}
+              {% render_field field class="inpLogin" placeholder=field.label %}
+              {% if field.errors %}
+              <span style="font-size: 12px; color: red; font-weight: 400;">*
+                  {% for error in field.errors %}{{ error }}{% endfor %}</span>
+              {% endif %}
+              {% endif %}
+              
+              {% endfor %}
+              {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+              <div class="alert small"  style="color: red;">
+                  {{ error }}
+              </div>
+              {% endfor %}
+              {% endif %}
+              <div class="buttonPosLogin">
+                
+              <div id="login-login">
+                <button style="margin-bottom: 15px !important;" class="btnLogin" type="submit"  name='submit' value='sign_in'>&nbsp;&nbsp; Sign In&nbsp;&nbsp; </button>
+                <br>
+              <a style="font-size: 15px; color: rgb(73, 73, 73);" class="signup__link" href="{% url 'forget' %}">Forgot password?</a>
+              </div>
+
+              </div>
+            </form>
+
+            <div style="margin-top: -150px; text-align: center;" id="home-login">
+              <a href="{% url 'login' %}">
+                <button style="margin-bottom: 15px !important;" class="btnLogin" >&nbsp;&nbsp; Sign In&nbsp;&nbsp; </button>
+
+              </a>
+              <br>
+              <a style="font-size: 15px; color: rgb(73, 73, 73);" class="signup__link" href="{% url 'forget' %}">Forgot password?</a>
+  
+            </div>
+
+          </div>
+          <div class="overlay-containerLogin">
+            <div class="overlayLogin">
+              <div class="overlay-panelLogin overlay-leftLogin">
+                <div class="accoutLogin alreadyLogin">Already a customer?</div>
+                <p>Log in with your data!</p>
+                <div class="buttonPosLogin">
+                  <button onclick="remove()" class="ghost btnLogin" id="signIn">&nbsp;&nbsp; Sign In &nbsp;&nbsp;</button>
+                </div>
+              </div>
+              <div class="overlay-panelLogin overlay-rightLogin">
+                <div class="titleTagLogin">Hi!</div>
+                <p style="font-size: 20px;" class="pLogin">Create a new account!</p>
+                <div class="buttonPosLogin">
+
+             
+                  <button onclick="myFunction()" class="ghost btnLogin" id="signUp">Sing up</button>
+                </div>
+      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif  %}
+    {% include 'index.html'  %}
+    {% include 'latest.html'  %}
+    {% comment %}
+    {% include 'us.html'  %}
+    {% endcomment %}
+<script>
+        function myFunction() {
+          var element = document.getElementById("containerLogin");
+          element.classList.add("right-panel-activeLogin");
+        }
+        function remove() {
+          var element = document.getElementById("containerLogin");
+          element.classList.remove("right-panel-activeLogin");
+        }
+        if (window.location.href.indexOf("login") > -1) {
+          document.querySelector('.wrapper').style.display = "none";
+        }
+
+        currentLocation = window.location.href
+        const myArray = currentLocation.split('/');
+        let length = myArray.length;
+
+        if (myArray[length - 2] != 'login' ) {
+          document.getElementById('login-login').style.display = "none";
+        }
+        else {
+          document.getElementById('home-login').style.display = "none";
+
+        }
+</script>
+
+{% endblock %}
+
+</div>

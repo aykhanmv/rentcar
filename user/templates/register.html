@@ -1,0 +1,148 @@
+{% extends 'main.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+{% block content %}
+
+<style>
+  .custom-input{
+  background-color: #FAFBFC;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+	border: 1px solid #fcc842;
+  }
+</style>
+
+<div class="BenzRent">
+  </div>
+  <div class="signup__container">
+    <div class="container__child">
+      <div class="">
+          <img style="width: 300px; margin-left: 60px !important;" src="{% static "images/logo/logo_01.jpg" %}" alt="">
+      </div>
+      <div class="signup__overlay"></div>
+    </div>
+    <div class="container__child signup__form">
+      <form action="{% url 'register' %}" method="POST">
+        {% csrf_token  %}
+        {% for field in form %}
+        {% if field.name == "full_name"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "email"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "user_choices"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100"  id="userType" placeholder=field.user_choices.label %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "password" or field.name == "password_confirm" %}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        
+        {% if field.name == "voen_code"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label id="pasNumber" style="display:none;" %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "phone"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label id="phoneNumber" style="display:none;" %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "gov_id"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label id="govNumber" style="display:none;" %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "gender"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label id="gender" %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% if field.name == "social_media"%}
+        {% render_field field class="custom-input rounded px-3 py-2 w-100" placeholder=field.label id="social_media" style="display:none" %}
+        {% if field.errors %}
+        <span style="font-size: 12px; color: red; font-weight: 400;">*
+            {% for error in field.errors %}{{ error }}{% endfor %}</span>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <div class="m-t-lg">
+          <div class="container-fluid">
+              <div class="row">
+                <div  style="padding-left: 0px !important;" class="col-4">
+                      <input style="padding: 8px 16px 8px 16px !important; border-radius: 25px !important; margin-top: 10px !important;" class="btnLogin" type="submit" value="Register" />
+                </div>
+                <div style="padding-left: 0px !important; padding-right: 0px !important;" class="col-8">
+                  <div style="margin-top: 10px !important;" class="login__div">
+                    <a style="font-size: 15px; color: rgb(73, 73, 73);" class="signup__link" href="{% url 'login' %}">I am already a member!</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <script>
+      const userType = document.querySelector("#userType")
+      gender = document.querySelector("#gender")
+      pasNumber = document.querySelector("#pasNumber")
+      phoneNumber = document.querySelector('#phoneNumber')
+      govNumber = document.querySelector('#govNumber')
+      social_media = document.querySelector('#social_media')
+      userType.addEventListener("change", () => {
+          if (userType.selectedIndex == 0) {
+              social_media.style.display = "none"
+              phoneNumber.style.display = "none"
+              gender.style.display = "block"
+              govNumber.style.display = "none"
+              pasNumber.style.display = "none"
+              govNumber.required = false
+              pasNumber.required = false
+              phoneNumber.required = false
+              social_media.required = false
+              gender.required = true
+          } else {
+              social_media.style.display = "block"
+              gender.style.display = "none"
+              phoneNumber.style.display = "block"
+              govNumber.style.display = "block"
+              pasNumber.style.display = "block"
+              govNumber.required = true
+              pasNumber.required = false
+              phoneNumber.required = true
+              gender.required = false
+              social_media.required = true
+          }
+      })
+  </script>
+  
+  {% endblock %}

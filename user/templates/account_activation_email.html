@@ -1,0 +1,11 @@
+
+{% autoescape off %}
+<b>Account activation</b>
+
+<div>Hi {{ user.get_full_name }},</div>
+<div>We are haapy to see you joining us!</div>
+<div>To activate your account follow the link below: </div>
+
+<div><a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Click this</a></div>
+
+{% endautoescape %}

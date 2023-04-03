@@ -1,0 +1,149 @@
+{% include 'main.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% if messages %}
+{% for msg in messages %}
+<script type=text/javascript> {% if msg.tags == 'success' %} toastr.success("{{msg}}"); {% elif msg.tags == 'error' %}
+    toastr.error("{{msg}}"); {% endif %} </script> {% endfor %} {% endif %} 
+
+    <div class="wrapperUpdate">
+       
+    </div>
+    <div class="blockUpdate">
+        <div class="exitUpdate">
+            <a class="exitLinkUpdate" href="{% url 'profile' %}">
+                <i class="exitIconUpdate fas fa-times-circle"></i>
+            </a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+
+                </div>
+                <div class="col-6">
+                    <div class="customerPicture customerPictureUpdate">
+						{% if user.profile_picture %}
+						<img style="width: 174px !important;" class="imgCustomer"  src='{{request.user.profile_picture.url}}'>
+						{% else %}
+							<img style="width: 174px !important;" src="{% static 'images/user.png' %}">
+						{% endif %}						
+					</div>
+                </div>
+                <div class="col-3">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="experienceTitle updateTitle">
+                        Update your account
+                    </div>
+                </div>
+            </div>
+            <form action="{% url 'profile_edit' %}" enctype="multipart/form-data" method="POST" >
+                {% csrf_token  %}
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        {% for field in user_form %}
+                        {% if field.name == 'profile_picture' %}
+
+                        <div class="boxImgUpdate">
+                            {% render_field field   placeholder=field.label  %}
+                            {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">* {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 col-12">
+                        {% for field in user_form %}
+                        {% if field.name == 'first_name' %}
+
+                        <div class="inputBoxCustomer">
+                            {% render_field field  class="inpBoxCustomer" placeholder=field.label %}
+                            {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">* {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        {% for field in user_form %}
+                        {% if field.name == 'last_name' %}
+
+                        <div class="inputBoxCustomer">
+                            {% render_field field class="inpBoxCustomer"  placeholder=field.label value='{{request.user.email}}' %}
+                            {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">* {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-md-6 col-12">
+                        {% for field in user_form %}
+                        {% if field.name == 'date_of_birth' %}
+
+                        <div class="inputBoxCustomer">
+                            {% render_field field class="inpBoxCustomer"  placeholder=field.label %}
+                            {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">* {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        {% for field in user_form %}
+                        {% if field.name == 'phone' %}
+
+                        <div class="inputBoxCustomer">
+                            {% render_field field class="inpBoxCustomer"  placeholder=field.label %}
+                            {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">* {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-md-6 col-12">
+                        {% for field in user_form %}
+                        {% if field.name == 'address' %}
+
+                        <div class="inputBoxCustomer">
+                            {% render_field field class="inpBoxCustomer"  placeholder=field.label %}
+                            {% if field.errors %}
+                                <span style="font-size: 12px; color: red; font-weight: 400;">* {% for error in field.errors %}{{ error }}{% endfor %}</span>
+                            {% endif %}                            
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 ">
+
+                    </div>
+                    <div class="col-6 ">
+                        <div class="submitUpdate">
+                            <button type="submit" class="raise">Submit</button>
+                        </div>
+                    </div>
+                    <div class=" col-3 ">
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+   
+    
+        

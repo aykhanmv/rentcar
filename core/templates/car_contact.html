@@ -1,0 +1,12 @@
+{% autoescape off %}
+    <b>{{contact.name}} wants to get in touch with you! </b>
+
+<div>Hi {{ car.company.get_full_name }},</div>
+<div>You have a new mail from "contact" section !</div>
+<div>
+    <h3>Name of the sender: {{contact.name}}</h3>
+    <p>Message: {{contact.message}}</p>
+    <p>Phone number of the sender: {{contact.phone}}</p>
+    <p>Email of the sender: {{contact.email}}</p>
+</div>
+{% endautoescape %}

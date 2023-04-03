@@ -1,0 +1,286 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+	<div class="grid-containerCustomer">
+		<div style="margin-bottom: 35px;" class="backCustomer">
+			<div class="backCustomerPos">
+				<a class="backLinkCustomer"href="{% url 'home'  %}">
+					<i class="fas fa-arrow-circle-left customerArrow"></i>
+					<span class="backTextCustomer">Back to home</span>
+				</a>
+			</div>
+		</div>
+		<div class="customerInfo">
+			<div class="row no-gutters">
+				<div class="col-md-2 col-4">
+					<div class="customerPicture">
+						{% if user.profile_picture %}
+						<img style="width: 174px !important;" class="imgCustomer"  src='{{request.user.profile_picture.url}}'>
+						{% else %}
+							<img style="width: 174px !important;" src="{% static 'images/user.png' %}">
+						{% endif %}
+					</div>
+				</div>
+					<div class="col-md-10 col-8">
+						<div class="conCustomer">
+							<div class="row">
+								<div class="col-md-3 col-sm-4">
+									<div class="customerName">
+                                    {{ request.user.first_name}} {{ request.user.last_name}}
+                                </div>
+								</div>
+								<div class="col-md-2 col-sm-12">
+									<div class="customerId">
+										<div class="customerIdText">User ID:</div>
+										<div id="customerIdNumber">{{ request.user.id}}</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-12">
+									<div class="customerNumber">
+										<div class="numberNavCustomer">
+                                        Phone number:
+                                    </div>
+										<div class="numberDataNavCustomer">
+                                        {{ request.user.phone }}
+                                    </div>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-12">
+									<div class="customerEmail">
+										<div class="numberNavCustomer">
+                                        Email:
+                                    </div>
+										<div class="numberDataNavCustomer">
+                                        {{ request.user.email }}
+                                    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="introduction">
+					<div class="row">
+						<div class="col-4">
+							<div class="introductionText">
+                            User Information
+                        </div>
+						</div>
+						<div class="col-4"><!--placeholder for additional functions --></div>
+						<div class="col-4"><!--placeholder for additional functions --></div>
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 60px !important;" class="personalInfo">
+				<div class="row">
+					<div  class="col-md-6 col-sm-12">
+						<div style="height: fit-content !important;" class="tilesCustomer">
+							<div class="row">
+								<div class="col-12">
+									<div class="personalTitle">
+                                    Account info
+                                </div>
+								</div>
+							</div>
+							<div class="grid-containerTile">
+								<div class="tileCustomer">
+									<div class="ageTileCustomer">
+										<div class="ageCustomer">
+                                    	Money spent:
+                                </div>
+										<div class="ageDataCustomer">
+										{% if totalPrice == None  %}
+											You 
+										{% else  %}
+											{{	totalPrice   }}
+										{% endif  %}
+                                </div>
+									</div>
+									<div style="margin-bottom: 61px !important;" class="dataTileCustomer">
+										<div class="dataTilePosCustomer">
+											<div class="dataTextRegister">
+                                        Registration date:
+                                    </div>
+									<div class="dataRegister">
+												{{ request.user.date_joined|date:"F j, Y"  }}
+                                    </div>
+										</div>
+									</div>
+									<div class="pickTileCustomer">
+										<div class="cityCustomer">
+                                    Last pick up:
+                                </div>
+										<div class="cityDataCustomer">
+									{% if lastOrder.pickUp == none %}
+										Need to 
+									{% else  %}
+									{{ lastOrder.pickUp }}
+									{% endif  %}
+                                </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-12">
+						<div style="height: fit-content !important;" class="tilesCustomer">
+							<div class="row">
+								<div class="col-12">
+									<div class="personalTitle">
+                                    Your contact Info
+                                </div>
+								</div>
+							</div>
+							<div class="row no-gutters">
+								<div class="col-md-5 col-sm-12">
+									<div class="xDD">
+										<div class="ageCustomer">
+                                        Phone number:
+                                    </div>
+										<div class="ageDataCustomer">
+										{{ request.user.phone  }}
+                                    </div>
+									</div>
+								</div>
+								<div class="col-md-7 col-sm-12">
+									<div class="xDD">
+										<div class="ageCustomer">
+                                        Email:
+                                    </div>
+										<div class="ageDataCustomer">
+											{{ request.user.email  }}
+                                    </div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2 ">
+			
+								</div>
+								<div class="col-8 ">
+									<div style=" height: 50px !important;" class="buttonOrderPos">
+										<a href="{% url 'profile_edit' %}" class="btn btn-sm animated-button thar-three">Update your profile</a>
+									</div>
+								</div>
+								<div class="col-8 ">
+									<div style=" height: 50px !important; margin-left: 95px !important; margin-bottom: 40px !important;" class="buttonOrderPos">
+										<a href="{% url 'forget' %}" class="btn btn-sm animated-button thar-three">Change you password</a>
+									</div>
+								</div>
+								<div class=" col-2 ">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="lastRent lastRentPos">
+				<div class="row no-gutters">
+					<div class="col-12">
+						<div class="row">
+							<div class="col-12">
+								<div class="experienceTitle">
+									Your car listing history 
+								</div>
+							</div>
+						</div>
+							
+						<div class="row no-gutters">
+                            <div class="col-2">
+                                <div class="headerTable">
+                                    Date:
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <div class="headerTable infoID">
+                                    Order ID:
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="headerTable">
+                                    Car model:
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="headerTable">
+                                    Cancel:
+                                </div>
+							</div>
+							
+                        
+                        </div>
+
+                        {% for x in cars %}
+							
+						<div class="row align-items-center">
+							<div class="col-md-12 col-sm-12 clickFaq ">
+								<div class="questionUs rowSize">
+									<div class="row no-gutters ">
+										<div class="col-2">
+											<div class="infoTable ">
+												{{ x.created_at|date:'d/m/y' }}
+											</div>
+										</div>
+										<div class="col-1">
+											
+										</div>
+										<div class="col-5">
+											<div class="infoTable">
+											    {{ x.model}}
+											</div>
+										</div>
+										<div class="col-3">
+											<div class="infoTable">
+											{% if x.is_booked  %}
+											<div class="payingPc">
+												<a href="#">Cancel this order</a>
+											</div>
+											<div class="payingMobile">
+												<a href="#">Cancel</a>
+											</div>
+											
+											{% else  %}
+											 Didn't Book yet
+											{% endif  %}
+											</div>
+										</div>
+										<div class="col-1">
+											<form action="" method="POST">
+												{% csrf_token %}
+											<div class="infoTable">
+												<input type='hidden' name="car_id" value="{{ x.id }}" />
+
+												<a href="{% url 'edit_car' x.id %}" ><i class="fa fa-pencil .displayFaq arrowsUS"></i></a>
+
+											</div>
+										</form>
+											
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+                        {% endfor  %}
+
+
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+{% endblock  %}
