@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-fbe^nx2067x&em192v6w4o&&j)d^v1@dq8k-5ub#qb6m=g%6b8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = True 
 
 ALLOWED_HOSTS = ['46.101.111.26']
 AUTH_USER_MODEL = 'user.MyUser'
@@ -81,24 +81,24 @@ WSGI_APPLICATION = 'rentcar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+# if DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
+# else:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'rentcardb',
+        'USER': 'rentcaruser',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'rentcardb',
-            'USER': 'rentcaruser',
-            'PASSWORD': '12345',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
-    }
+}
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 
