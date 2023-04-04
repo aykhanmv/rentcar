@@ -2,7 +2,7 @@ amqp==5.1.1
 asgiref
 async-timeout==4.0.2
 billiard==3.6.4.0
-celery==5.3
+celery==6
 click
 click-didyoumean==0.3.0
 click-plugins==1.1.1
