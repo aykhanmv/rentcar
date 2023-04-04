@@ -12,7 +12,7 @@ Django
 django-celery-beat==2.5.0
 django-jazzmin==2.6.0
 django-timezone-field
-django-widget-tweaks==1.4.12
+django-widget-tweaks
 gunicorn==20.1.0
 kombu==5.2.4
 Pillow==9.4.0
