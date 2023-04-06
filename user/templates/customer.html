@@ -15,7 +15,7 @@
 		<div class="customerInfo">
 			<div class="row no-gutters">
 				<div class="col-md-2 col-4">
-					<div class="customerPicture">
+					<div style="padding-left: 53px !important;" class="customerPicture">
 						{% if user.profile_picture %}
 						<img style="width: 174px !important;" class="imgCustomer"  src='{{request.user.profile_picture.url}}'>
 						{% else %}
