@@ -12,7 +12,7 @@ Admin user: aykhan.mv@gmail.com
 Admin user passwd: aykhan123
 ```
 
-### To Access to the data base:
+## To Access to the data base:
 
 ```
 1. Connect to the vps: ssh root@207.154.223.6
