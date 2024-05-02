@@ -5,7 +5,7 @@ Drive Today is a Python (Django) based car renting web application, where compan
 ## Live here:
 
 ```
-Link: http://207.154.223.6/
+http://207.154.223.6/
 ```
 
 ## To launch this app on your local machine:
